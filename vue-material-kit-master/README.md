@@ -1,54 +1,115 @@
-# 📂 Mi Proyecto Vue 3 + Vite
+# 📂 Mi Proyecto Vue 3 + Vite + Node.js + MySQL
 
-Este proyecto es una aplicación Vue 3 que utiliza `Vite` como bundler, junto con un esquema de layouts para páginas públicas y privadas.
+Este proyecto es una aplicación fullstack que incluye:
+
+- 🎨 **Frontend**: Vue 3 + Vite
+- 🧠 **Backend**: Node.js + Express + MySQL
+- 🧭 **Layouts** para páginas públicas y privadas
+- ⚙️ **Base de datos** inicializable automáticamente con un script
+
+---
 
 ## 🧭 Estructura de carpetas
 
 src/
-├─ assets/ # Recursos estáticos (CSS, imágenes, fuentes...)
-├─ components/ # Componentes reusables (NavBar, botones, etc.)
+├─ assets/ # Recursos estáticos (CSS, imágenes...)
+├─ components/ # Componentes reusables
 ├─ layouts/ # Layouts generales para páginas públicas y privadas
 ├─ views/ # Vistas (páginas) como Home, Seguridad, etc.
-├─ router/ # Configuración de rutas
-├─ stores/ # Vuex/Pinia stores (gestión global del estado)
+├─ router/ # Configuración del enrutador
+├─ stores/ # Vuex/Pinia para el estado global
 ├─ App.vue # Componente raíz
 ├─ main.js # Punto de entrada
+db/
+├─ schema.sql # Esquema inicial para la base de datos
+scripts/
+├─ setup-db.js # Script para inicializar la base automáticamente
+index.js # Backend Node.js con Express y MySQL
+.env.example # Archivo de ejemplo para configuración
 
-markdown
+yaml
 Copiar
 Editar
 
+---
+
 ## 🎨 Layouts
 
-- `PublicLayout.vue`: Usado para páginas públicas que **no tienen navbar** (por ejemplo `Seguridad.vue`)
-- `MainLayout.vue`: Usado para páginas privadas que **sí muestran la navbar** (por ejemplo `Home.vue`, `Usuarios.vue`)
-- `NewNavbar.vue`: La barra de navegación que solo se incluye en `MainLayout.vue`
+- `PublicLayout.vue`: Para páginas públicas (sin navbar), por ejemplo `Seguridad.vue`.
+- `MainLayout.vue`: Para páginas privadas (con navbar), por ejemplo `Home.vue`, `Usuarios.vue`.
+- `NewNavbar.vue`: Barra de navegación incluida en `MainLayout.vue`.
 
-## 🚀 Cómo ejecutar el proyecto
+---
 
-1. Instala las dependencias:
-   ```bash
-   npm install
-Ejecuta el proyecto en modo desarrollo:
+## 🧰 Configuración del proyecto
+
+1️⃣ Instala las dependencias:
+```bash
+npm install
+2️⃣ Crea tu archivo .env copiando el ejemplo:
 
 bash
 Copiar
 Editar
-npm run dev
-Accede a la app en tu navegador en http://localhost:5173
+cp .env.example .env
+3️⃣ Configura tus credenciales en .env:
 
-⚙️ Configuración del router
-En router/index.js, las rutas se agrupan por layout:
+ini
+Copiar
+Editar
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=TuPassword
+DB_NAME=mi_app
+🗄️ Base de datos
+⚠️ Asegúrate de tener MySQL instalado y corriendo.
 
-Rutas públicas que usan PublicLayout.vue.
+4️⃣ Inicializa la base automáticamente:
 
-Rutas privadas que usan MainLayout.vue.
+bash
+Copiar
+Editar
+npm run setup:db
+Esto:
 
-🤝 Contribución
-Si quieres contribuir:
+Creará la base definida en DB_NAME.
 
-Crea una rama nueva.
+Ejecutará el esquema SQL de db/schema.sql.
 
-Haz tu cambio.
+Insertará un usuario de prueba (admin@example.com / 12345).
 
+🚀 Cómo ejecutar el proyecto
+5️⃣ Ejecuta frontend + backend:
+
+bash
+Copiar
+Editar
+npm run dev:all
+✅ Accede a la app en tu navegador en:
+http://localhost:3000
+(el backend sirve también el frontend ya compilado)
+
+🔐 Login de prueba
+Usa:
+
+makefile
+Copiar
+Editar
+email: admin@example.com
+password: 12345
+🤝 Contribuir
+Crea una rama nueva:
+
+bash
+Copiar
+Editar
+git checkout -b feature/mi-cambio
+Realiza tus cambios.
+
+Sube la rama:
+
+bash
+Copiar
+Editar
+git push origin feature/mi-cambio
 Abre un Pull Request para revisión.
